@@ -1,0 +1,30 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    /* padding-bottom: 10px; */
+    background: #343A40;
+    border-radius: 6px;
+    margin: 10px 0 0 0;
+    padding: 8px
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between; 
+  }
+
+  .username {
+   color:#6C757D
+    
+  }
+
+  .date {
+    /* display: inline-block; */
+    
+  }
+
+  .post-body {
+    /* flex: 1; */
+    padding: 15px 0 15px 0;
+    
+  }
