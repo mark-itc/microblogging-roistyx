@@ -2,28 +2,28 @@ import {React, useState, useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import {format } from 'date-fns'
 import Button from '@mui/material/Button';
-import dataBase from './dataBase';
+import DataBase from './DataBase';
 import './CommentBox.css'
 
-export default function CommentBox() {
+export default function CommentBox({updateTweets}) {
   const [tweetMessage, setTweetMessage] = useState("");
-  const [tweetsList, setTweetsList] = useState("");
+  const [tweetsList, setTweetsList] = useState(DataBase());
   const username = "Roie A."
   const date = format(new Date(), 'yyyy-MM-dd HH:mm:ss.ms')
   const tweetMessageLength = tweetMessage.length
- 
+  
   useEffect(() => {
-    const storedTweets = JSON.parse(localStorage.getItem("myITCtweetApp"))
-    if (storedTweets) setTweetsList(storedTweets)
-  },[])
+    updateTweets(tweetsList)
+  })
 
   useEffect(() => { 
     if (tweetsList !== "" )
-    dataBase("myITCtweetApp", JSON.stringify(tweetsList))
+    DataBase("myITCtweetApp", JSON.stringify(tweetsList))
     },[tweetsList])
 
   const sendMessage= (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+    // updateTweets(tweetsList)
     if (tweetMessage === "" || tweetMessageLength >= 140) return  
     setTweetsList(prevTweetMessages => {
       return ([...prevTweetMessages,{
@@ -38,7 +38,7 @@ export default function CommentBox() {
   return (
     <div className='comment-box'>
       <form>
-        <div className='comment-box_input'>
+        <div type="textarea" className='comment-box_input'>
           <input onChange={(event) => setTweetMessage(event.target.value)} placeholder="What do you have in mind..." value={tweetMessage} type="text"/>
         </div>
         <div className="bottom-comment-box">

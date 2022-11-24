@@ -14,17 +14,14 @@
   }
 
   .username {
-   color:#6C757D
-    
+    color:#6C757D
   }
 
   .date {
     /* display: inline-block; */
-    
   }
 
   .post-body {
-    /* flex: 1; */
     padding: 15px 0 15px 0;
-    
+    overflow:auto
   }

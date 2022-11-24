@@ -1,22 +1,28 @@
 import {React, useEffect, useState} from 'react'
 import CommentBox from './CommentBox'
-import FlipMove from "react-flip-move";
 import Post from './Post'
 import './Feed.css'
-// import dataBase from './dataBase';
+import DataBase from './DataBase';
 
 export default function Feed() {
-  const db = JSON.parse(localStorage.getItem("myITCtweetApp"))
+  const [tweetsRender, setTweetsRender] = useState('')
+  
+
+  function updateTweets(tweetsList) {
+    setTweetsRender(tweetsList)
+    return tweetsRender
+  }
+
   const isFeedEmpty = () => {
-      if (db) return false
+      if (DataBase) return false
       else return true
     }
        
   return (
     <div className="feed">
-        <CommentBox/>
+        <CommentBox updateTweets={updateTweets}/>
         {!isFeedEmpty() ?
-          db.reverse().map((post) => (
+          DataBase().reverse().map((post) => (
               <Post
                 key={post.id}
                 tweetMessage={post.tweetMessage}
