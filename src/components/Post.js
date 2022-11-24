@@ -12,7 +12,7 @@ export default function Post({tweetMessage, date, username}) {
             </div>
             <div className='date'>{date}</div>
         </div>
-        <div type="textarea" className='post-body'>
+        <div className='post-body'>
         {tweetMessage}
 
         </div>
