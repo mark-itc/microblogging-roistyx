@@ -38,11 +38,10 @@ const sendTweetToApi = async (tweetMessage) => {
     setIsLoading(false)
     disableWtweet(false)
   } catch(error) {
-    alert(error);
+    alert("Your tweet didn't send",error);
   }
 }
- 
-  
+
   const sendMessage= (e) => {
     e.preventDefault();
     if (tweetMessage === "" || tweetMessageLength >= 140)   
@@ -52,7 +51,7 @@ const sendTweetToApi = async (tweetMessage) => {
       date: date, 
       username: username 
     })
-    sendTweetToApi(tweetMessage, tweetMessage.date)
+    sendTweetToApi(tweetMessage)
     return   
   }
 
