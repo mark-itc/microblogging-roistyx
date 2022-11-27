@@ -6,6 +6,7 @@ import './Feed.css'
 
 export default function Feed() {
   const [apiPosts, setApiPosts] = useState([])
+<<<<<<< HEAD
   
   async function fetchFromAPI() {
     
@@ -20,6 +21,8 @@ export default function Feed() {
       alert(e);
     }  
   }
+=======
+>>>>>>> parent of 49398b1 (Milstone 2)
 
 
 useEffect(()=>{
@@ -27,12 +30,16 @@ useEffect(()=>{
   
 },[])
 
+<<<<<<< HEAD
+=======
+  console.log(apiPosts)
+>>>>>>> parent of 49398b1 (Milstone 2)
       
   return (
     
     <div className="feed">
      
-        <CommentBox fetchFromAPI={fetchFromAPI()}/>
+        <CommentBox/>
         {apiPosts.map((post)=>  
           <Post
             tweetMessage={post.content}
