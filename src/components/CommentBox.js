@@ -2,17 +2,14 @@ import {React, useState, useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import {format } from 'date-fns'
 import Button from '@mui/material/Button';
-// import sendToApi from '../helper/postApi'
 import './CommentBox.css'
 
 export default function CommentBox(fetchFromAPI) {
-  // sendToApi("caca", "cacaMe", "pipi")
   const [tweetMessage, setTweetMessage] = useState("");
-  // const [isLoading, setIsLoading] = useState("");
   const username = "Roie A."
-  const dateA = format(new Date(), 'yyyy-MM-dd')
-  const dateB = format(new Date(), 'HH:mm:ss.ms')
+  const date = format(new Date(), 'yyyy-MM-dd')+format(new Date(), 'HH:mm:ss.ms')+"Z"
   const tweetMessageLength = tweetMessage.length
+  // console.log(date)
   
   function setIsLoading(bol){
     if(bol) {
@@ -52,10 +49,10 @@ const sendTweetToApi = async (tweetMessage) => {
     setTweetMessage({
       tweetMessage: tweetMessage, 
       key: uuidv4(), 
-      date: dateA+'T'+dateB+'Z', 
+      date: date, 
       username: username 
     })
-    sendTweetToApi(tweetMessage)
+    sendTweetToApi(tweetMessage, tweetMessage.date)
     return   
   }
 

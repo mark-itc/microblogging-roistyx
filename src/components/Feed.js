@@ -6,26 +6,27 @@ import './Feed.css'
 
 export default function Feed() {
   const [apiPosts, setApiPosts] = useState([])
-  // console.log(apiPosts)
+  
+  async function fetchFromAPI() {
+    
+    try {
+      const response = await fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet');
+       const results = await response.json();
+       const posts = results.tweets
+       
+      return setApiPosts(posts)
+  
+    } catch (e) {
+      alert(e);
+    }  
+  }
 
-  const fetchFromAPI = async () => {
-
-    const results = await getApi();
-    if (results) {
-      const posts = results.tweets
-      setApiPosts(posts);
-    } else {
-        alert(results.message)
-    }
-    // console.log(results)
-}
 
 useEffect(()=>{
   fetchFromAPI()
   
 },[])
 
-  // console.log(apiPosts)
       
   return (
     
