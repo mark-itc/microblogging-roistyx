@@ -6,6 +6,7 @@ import './Feed.css'
 
 export default function Feed() {
   const [apiPosts, setApiPosts] = useState([])
+  // console.log(apiPosts)
 
   const fetchFromAPI = async () => {
 
@@ -24,13 +25,13 @@ useEffect(()=>{
   
 },[])
 
-  console.log(apiPosts)
+  // console.log(apiPosts)
       
   return (
     
     <div className="feed">
      
-        <CommentBox/>
+        <CommentBox fetchFromAPI={fetchFromAPI()}/>
         {apiPosts.map((post)=>  
           <Post
             tweetMessage={post.content}

@@ -1,14 +1,14 @@
   export default function sendToApi(date, content, userName) {
-    fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/weetERROR',{
+    console.log(date, content, userName)
+      fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
     method: 'POST',
     headers: {
         'content-Type': 'application/json',
     },
     body : JSON.stringify({
-        date : date,
-        content : content,
-        userName : userName,
-
+        content : "",
+        userName : 'Hell',
+        date : '2022-11-24T13:48:44.474Z',   
     })
 
 }).then(response => {
@@ -17,7 +17,7 @@
     return 
 })
 
-    .then( data => console.log(data))
-    .catch(error => console.log(error))
+    // .then( data => console.log(data))
+    // .catch(error => console.log(error))
   }
 
