@@ -6,7 +6,7 @@ import './Post.css'
 export default function Post({tweetMessage, date, username}) {
 
   return (
-    <div key={uuidv4} className='post'>
+    <div  className='post'>
         <div className='header'> 
             <div className='username'>
                 {username}

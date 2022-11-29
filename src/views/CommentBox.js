@@ -3,17 +3,17 @@ import {format } from 'date-fns'
 import Button from '@mui/material/Button';
 import './CommentBox.css'
 
-
-
 export default function CommentBox({callTeetsUpdater: callTweetsUpdater}) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
   const tweetMessageLength = tweetMessage.length
+  const profileName = localStorage.getItem("PROFILE_NAME")
+  
   useEffect(() => {
     callTweetsUpdater()
      })
- 
+ console.log(profileName)
    function sendTweet(arg) {
     fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
       method: 'POST',
@@ -22,7 +22,7 @@ export default function CommentBox({callTeetsUpdater: callTweetsUpdater}) {
       },
       body : JSON.stringify({
         content : arg,
-        userName : 'Dennis the Menace',
+        userName : profileName,
         date : date,   
     })}).then(response => {
       return response.json()

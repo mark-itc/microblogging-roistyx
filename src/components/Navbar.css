@@ -7,9 +7,21 @@
     height: 58px;
     position: fixed;
     background-color:#343A40;
+    border-radius: 5px;
 }
 .menu-items {
     width: 5%;
     text-align: center;
     padding: 18px;
 }
+
+.link-element {
+    text-decoration: none;
+}
+a {
+    color: white
+}
+
+a:hover {
+    color: grey;
+} 

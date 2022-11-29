@@ -41,5 +41,17 @@
     border-radius: 6px;
 }
 
-
+.comment-box_input-Button {
+    /* font-size: 16px; */
+    display: flex;
+    width: 80px;
+    align-items: center;
+    text-align: center;
+    border: none;
+    color: white;
+    font-weight: 400;
+    text-transform: inherit !important;
+    border-radius: 5px;
+    margin-left: auto !important;
+}
 
