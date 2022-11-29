@@ -3,7 +3,7 @@ import {format } from 'date-fns'
 import Button from '@mui/material/Button';
 import './CommentBox.css'
 
-export default function CommentBox({callTeetsUpdater: callTweetsUpdater}) {
+export default function CommentBox({ callTweetsUpdater}) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
@@ -33,7 +33,7 @@ export default function CommentBox({callTeetsUpdater: callTweetsUpdater}) {
     e.preventDefault();
     if (tweetMessage === "") alert("Enter text")
     setLoading(true)
-    sendTweet(tweetMessage)
+    sendTweet(tweetMessage) 
     setLoading(false)
     setTimeout(function() {
       callTweetsUpdater(true)

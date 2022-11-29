@@ -30,7 +30,7 @@ export default function Feed() {
   return (
     
     <div className="feed">
-      <CommentBox callTeetsUpdater={callTweetsUpdater}/>
+      <CommentBox callTweetsUpdater={callTweetsUpdater}/>
       {apiPosts.map((post)=>  
         <Post
           key={uuidv4}
