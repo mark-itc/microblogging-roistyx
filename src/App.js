@@ -1,41 +1,54 @@
-import './App.css';
-import './components/Navbar.css';
-import './components/left-column.css';
-import './components/right-column.css';
-import Feed from './views/Feed';
-import Profile from './views/Profile';
-import Navbar from './components/Navbar';
-import {UserContext} from './components/UserContext';
-import {TweetPosterContext} from './components/TweetPosterContext';
-import {ApiTweetsContext} from './components/ApiTweetsContext';
-import {TweetsRenderContext} from './components/TweetsRenderContext'
-import React, {useState, useEffect} from 'react'
-import {Route, Routes} from 'react-router-dom'
-import fetchFromAPI from './helper/api';
+import React, { useState, useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { ApiTweetsContext } from './components/ApiTweetsContext'
+import { UserContext } from './components/UserContext'
+import { TweetsRenderContext } from './components/TweetsRenderContext'
+import { TweetPosterContext } from './components/TweetPosterContext'
+import fetchFromAPI from './helper/api'
+import Navbar from './components/Navbar'
+import Feed from './views/Feed'
+import Profile from './views/Profile'
+import './components/right-column.css'
+import './components/left-column.css'
+import './components/Navbar.css'
+import './App.css'
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 function App() {
-  const [ profile, setProfile ] = useState("")
-  const [tweetMessage, setTweetMessage] = useState("");
+  const [profile, setProfile ] = useState(undefined)
+  const [tweetMessage, setTweetMessage] = useState("")
   const [apiPosts, setApiPosts] = useState([])
-  const [tweetsRender, setTweetsRender] = useState('')
+  const [tweetsRender, setTweetsRender] = useState([])
+  
+  
   
   useEffect(() => {
+    
     let fetchTweetList =  async () => {
-      const results = await fetchFromAPI();
+      const results = await fetchFromAPI()
       setApiPosts(results)
       
-    };
+    }
     fetchTweetList()
-  }, []);
-  
- 
+  }, [])
+
   return (
     <>
       <div className="app">
         <Navbar className='navbar'/>
+        
         <div className="left-column"></div>
         <div className="feed-comment_box-container">
         <ApiTweetsContext.Provider value={{apiPosts, setApiPosts}}>
@@ -55,7 +68,7 @@ function App() {
       </div>
     
     </>
-  );
+  )
 }
 
-export default App;
+export default App

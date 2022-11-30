@@ -1,36 +1,30 @@
-import {React, useEffect, useState, useContext} from 'react'
-import CommentBox from './CommentBox'
+import { React, useEffect, useContext } from 'react'
+import { ApiTweetsContext } from '../components/ApiTweetsContext'
+import fetchFromAPI from '../helper/api'
 import Post from '../components/Post'
-import {ApiTweetsContext} from '../components/ApiTweetsContext';
-import {TweetsRenderContext} from '../components/TweetsRenderContext';
+import CommentBox from './CommentBox'
 import './Feed.css'
-import fetchFromAPI from '../helper/api';
 
 
 export default function Feed() {
-  const {apiPosts, setApiPosts} = useContext(ApiTweetsContext)
-  const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
-
-  // useEffect(() => {
-  // },[apiPosts])
+  const { setApiPosts } = useContext(ApiTweetsContext)
   
-  
-  //TweetPosterContext
   useEffect(() => {
     let interval = setInterval( async () => {
-      const results = await fetchFromAPI();
+      const results = await fetchFromAPI()
       setApiPosts(results)
-    }, 100000);
+    }, 100000)
     return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval)
+    }
+  })
 
   return (
-    
     <div className="feed">
       <CommentBox />  
       <Post/>
+      {setApiPosts.content=== undefined ? <h1 style={{color: "white"}}>Loading...</h1> : ""}
+      
     </div>
   )
 }

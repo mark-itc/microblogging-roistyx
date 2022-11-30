@@ -1,20 +1,29 @@
-import {React, useState, useEffect, useContext} from 'react'
-import {TweetPosterContext} from '../components/TweetPosterContext';
-import {ApiTweetsContext} from '../components/ApiTweetsContext';
-import {TweetsRenderContext} from '../components/TweetsRenderContext';
-import {format } from 'date-fns'
-import Button from '@mui/material/Button';
+import { React, useContext, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { TweetPosterContext } from '../components/TweetPosterContext'
+import { TweetsRenderContext } from '../components/TweetsRenderContext'
+import { format } from 'date-fns'
+import Button from '@mui/material/Button'
 import './CommentBox.css'
 
 export default function CommentBox() {
+  const [noProfileRedirect, setNoProfileRedirect] = useState("false")
   const {tweetMessage, setTweetMessage} = useContext(TweetPosterContext)
-  const {apiPosts, setApiPosts} = useContext(ApiTweetsContext)
-  const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
-  const [loading, setLoading] = useState(false);
+  const {setTweetsRender} = useContext(TweetsRenderContext)
+  const navigate = useNavigate()
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
   const tweetMessageLength = tweetMessage.length
   const profileName = localStorage.getItem("PROFILE_NAME")
- 
+  // console.log(noProfileRedirect)
+  
+    function redirectUser() { 
+      // if(profileName === null) setNoProfileRedirect("true")
+      navigate("/profile")
+      // setNoProfileRedirect("false")
+        
+    }
+    // console.log(profileName)
+//  console.log(noProfileRedirect)
    function sendTweet() {
     fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
       method: 'POST',
@@ -22,43 +31,46 @@ export default function CommentBox() {
         'content-Type': 'application/json',
       },
       body: JSON.stringify({
-        content : tweetMessage,
         userName : profileName,
+        content : tweetMessage,
         date : date,   
     })}).then(response => {
       return response.json()
     })
   }
+  // console.log(profileName)
 
   const sendMessage= (e) => {
-    // console.log(e.value)
-    e.preventDefault();
-    if (tweetMessage === "") return 
-    setLoading(true)
+    e.preventDefault()
     setTweetsRender({
-      content: tweetMessage, 
       userName: profileName,
+      content: tweetMessage, 
       date: date,   
-    })
-    sendTweet()
-    setLoading(false)
-    return 
+    }) 
+    
+    return sendTweet()
   }
-  
+
   return (
     <div className='comment-box'>
-      {loading ? <h1>Loading...</h1> : ""}
+      {/* {tweetMessage ? <h1>Redirect</h1> : ""}  */}
       <form>
-        <div className='comment-box_input'>
-          <input onChange={(event) => setTweetMessage(event.target.value)} placeholder="What do you have in mind..." value={tweetMessage} type="text"/>
-        </div>
-        <div className="bottom-comment-box">
-          {tweetMessageLength >= 140 ? <div className="length-error" >The tweet can't contain more then 140 chars.</div> : ""}
-        <Button disabled={tweetMessageLength >= 140 ? true : false} variant="contained" className='comment-box_input-Button' type='submit' onClick={sendMessage}>
+      <div className='comment-box_input'>
+        <input onChange={(event) => setTweetMessage(event.target.value)} placeholder="What do you have in mind..." value={tweetMessage} type="text"/>
+      </div>
+      <div className="bottom-comment-box">
+        {tweetMessageLength >= 140 ? 
+        <div className="length-error" >
+          The tweet can't contain more then 140 chars.
+        </div> : ""}
+        <Button disabled={tweetMessageLength >= 140 ?
+          true : false} 
+          className='comment-box_input-Button' variant="contained" type='submit' 
+          onClick={sendMessage}>
             Tweet
         </Button>
-        </div>
-      </form>
+      </div>
+    </form>
     </div>
   )
 }
