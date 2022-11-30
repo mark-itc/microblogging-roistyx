@@ -7,13 +7,20 @@ import './Feed.css'
 
 
 export default function Feed() {
-  const { setApiPosts } = useContext(ApiTweetsContext)
+  const {setApiPosts} = useContext(ApiTweetsContext)
+  useEffect(() => {
+    let fetchTweetList =  async () => {
+      const results = await fetchFromAPI()
+      setApiPosts(results)
+    }
+    fetchTweetList()
+  }, [])
   
   useEffect(() => {
     let interval = setInterval( async () => {
       const results = await fetchFromAPI()
       setApiPosts(results)
-    }, 100000)
+    }, 10000)
     return () => {
       clearInterval(interval)
     }
@@ -23,8 +30,6 @@ export default function Feed() {
     <div className="feed">
       <CommentBox />  
       <Post/>
-      {setApiPosts.content=== undefined ? <h1 style={{color: "white"}}>Loading...</h1> : ""}
-      
     </div>
   )
 }

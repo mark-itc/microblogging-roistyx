@@ -13,38 +13,13 @@ import './components/left-column.css'
 import './components/Navbar.css'
 import './App.css'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function App() {
-  const [profile, setProfile ] = useState(undefined)
+  const [profile, setProfile] = useState(undefined)
   const [tweetMessage, setTweetMessage] = useState("")
   const [apiPosts, setApiPosts] = useState([])
   const [tweetsRender, setTweetsRender] = useState([])
   
-  
-  
-  useEffect(() => {
-    
-    let fetchTweetList =  async () => {
-      const results = await fetchFromAPI()
-      setApiPosts(results)
-      
-    }
-    fetchTweetList()
-  }, [])
-
-  return (
+    return (
     <>
       <div className="app">
         <Navbar className='navbar'/>

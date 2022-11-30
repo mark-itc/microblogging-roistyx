@@ -7,9 +7,8 @@ import Button from '@mui/material/Button'
 import './CommentBox.css'
 
 export default function CommentBox() {
-  const [noProfileRedirect, setNoProfileRedirect] = useState("false")
   const {tweetMessage, setTweetMessage} = useContext(TweetPosterContext)
-  const {setTweetsRender} = useContext(TweetsRenderContext)
+  const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
   const navigate = useNavigate()
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
   const tweetMessageLength = tweetMessage.length
@@ -17,10 +16,7 @@ export default function CommentBox() {
   // console.log(noProfileRedirect)
   
     function redirectUser() {
-      // if(profileName) return 
       navigate("/profile")
-      
-        
     }
     // console.log(profileName)
 //  console.log(noProfileRedirect)
@@ -38,22 +34,29 @@ export default function CommentBox() {
       return response.json()
     })
   }
-  console.log(profileName)
+  // console.log(  tweetMessage
+  //   )
 
   const sendMessage= (e) => {
-    // console.log(e.value)
-    e.preventDefault();
-    if (tweetMessage === "") return
     
     if (profileName === null) {
       redirectUser()
-    } else if(profileName === !null){setTweetsRender({
+    }
+    if (!tweetMessage ) alert("Add tweet")
+    e.preventDefault();
+    if (!tweetMessage ) return 
+    if (profileName === null) return
+    
+    
+     
+    
+    
+    
+    setTweetsRender({
       content: tweetMessage, 
       userName: profileName,
       date: date,   
-    })}
-    // if (profileName === null) return
-     
+    })
     
     sendTweet()
     return 

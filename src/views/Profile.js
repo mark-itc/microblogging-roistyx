@@ -14,7 +14,7 @@ function Profile() {
       
       if (profile) {
         navigate("/");
-      } 
+      }
     }
 
     const submitProfileName= (e) => {
