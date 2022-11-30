@@ -16,10 +16,10 @@ export default function CommentBox() {
   const profileName = localStorage.getItem("PROFILE_NAME")
   // console.log(noProfileRedirect)
   
-    function redirectUser() { 
-      // if(profileName === null) setNoProfileRedirect("true")
+    function redirectUser() {
+      // if(profileName) return 
       navigate("/profile")
-      // setNoProfileRedirect("false")
+      
         
     }
     // console.log(profileName)
@@ -38,17 +38,25 @@ export default function CommentBox() {
       return response.json()
     })
   }
-  // console.log(profileName)
+  console.log(profileName)
 
   const sendMessage= (e) => {
-    e.preventDefault()
-    setTweetsRender({
-      userName: profileName,
-      content: tweetMessage, 
-      date: date,   
-    }) 
+    // console.log(e.value)
+    e.preventDefault();
+    if (tweetMessage === "") return
     
-    return sendTweet()
+    if (profileName === null) {
+      redirectUser()
+    } else if(profileName === !null){setTweetsRender({
+      content: tweetMessage, 
+      userName: profileName,
+      date: date,   
+    })}
+    // if (profileName === null) return
+     
+    
+    sendTweet()
+    return 
   }
 
   return (
