@@ -4,6 +4,7 @@ export default async function fetchFromAPI() {
        const results = await response.json();
        const data = JSON.stringify(results.tweets)
        const posts = JSON.parse(data)
+       
       return posts
   
     } catch (e) {

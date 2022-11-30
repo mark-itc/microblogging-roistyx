@@ -1,43 +1,36 @@
-import {React, useEffect, useState} from 'react'
+import {React, useEffect, useState, useContext} from 'react'
 import CommentBox from './CommentBox'
 import Post from '../components/Post'
+import {ApiTweetsContext} from '../components/ApiTweetsContext';
+import {TweetsRenderContext} from '../components/TweetsRenderContext';
 import './Feed.css'
 import fetchFromAPI from '../helper/api';
-import { v4 as uuidv4 } from 'uuid';
+
 
 export default function Feed() {
-  const [apiPosts, setApiPosts] = useState([])
-  const [updater, setUpdater] = useState(true)
-  
-  const tweetsUpdater = async () => {
-    const results = await fetchFromAPI();
-     setApiPosts(results)
-     return 
-  }
+  const {apiPosts, setApiPosts} = useContext(ApiTweetsContext)
+  const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
 
-  useEffect(() => {
-    setUpdater(updater)
-  },[])
-
-  useEffect(() => {
-    tweetsUpdater()
-     },[updater])
+  // useEffect(() => {
+  // },[apiPosts])
   
-     function callTweetsUpdater(arg) {
-    setUpdater(arg)
-  }
+  
+  //TweetPosterContext
+  useEffect(() => {
+    let interval = setInterval( async () => {
+      const results = await fetchFromAPI();
+      setApiPosts(results)
+    }, 100000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     
     <div className="feed">
-      <CommentBox callTweetsUpdater={callTweetsUpdater}/>
-      {apiPosts.map((post)=>  
-        <Post
-          key={uuidv4}
-          tweetMessage={post.content}
-          date={post.date}
-          username={post.userName}/>
-      )}
+      <CommentBox />  
+      <Post/>
     </div>
   )
 }

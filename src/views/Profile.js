@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../components/UserContext'
 // import Button from '../components/Button';
-import TextInput from '../components/TextInput'
+// import TextInput from '../components/TextInput'
 // import Button from '../components/Button'
 import Button from '@mui/material/Button';
 import '../components/Button.css'
 import './Profile.css'
 
 function Profile() {
-    const [ profile, setProfile ] = useState("")
+    // const [ profile, setProfile ] = useState("")
+    const {profile, setProfile} = useContext(UserContext)
 
     const submitProfileName= (e) => {
         e.preventDefault();

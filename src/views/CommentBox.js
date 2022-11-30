@@ -1,27 +1,28 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useContext} from 'react'
+import {TweetPosterContext} from '../components/TweetPosterContext';
+import {ApiTweetsContext} from '../components/ApiTweetsContext';
+import {TweetsRenderContext} from '../components/TweetsRenderContext';
 import {format } from 'date-fns'
 import Button from '@mui/material/Button';
 import './CommentBox.css'
 
-export default function CommentBox({ callTweetsUpdater}) {
-  const [tweetMessage, setTweetMessage] = useState("");
+export default function CommentBox() {
+  const {tweetMessage, setTweetMessage} = useContext(TweetPosterContext)
+  const {apiPosts, setApiPosts} = useContext(ApiTweetsContext)
+  const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
   const [loading, setLoading] = useState(false);
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
   const tweetMessageLength = tweetMessage.length
   const profileName = localStorage.getItem("PROFILE_NAME")
-  
-  useEffect(() => {
-    callTweetsUpdater()
-     })
- console.log(profileName)
-   function sendTweet(arg) {
+ 
+   function sendTweet() {
     fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
       method: 'POST',
       headers: {
         'content-Type': 'application/json',
       },
-      body : JSON.stringify({
-        content : arg,
+      body: JSON.stringify({
+        content : tweetMessage,
         userName : profileName,
         date : date,   
     })}).then(response => {
@@ -30,16 +31,20 @@ export default function CommentBox({ callTweetsUpdater}) {
   }
 
   const sendMessage= (e) => {
+    // console.log(e.value)
     e.preventDefault();
-    if (tweetMessage === "") alert("Enter text")
+    if (tweetMessage === "") return 
     setLoading(true)
-    sendTweet(tweetMessage) 
+    setTweetsRender({
+      content: tweetMessage, 
+      userName: profileName,
+      date: date,   
+    })
+    sendTweet()
     setLoading(false)
-    setTimeout(function() {
-      callTweetsUpdater(true)
-    }, 1000)
-    return
+    return 
   }
+  
   return (
     <div className='comment-box'>
       {loading ? <h1>Loading...</h1> : ""}
