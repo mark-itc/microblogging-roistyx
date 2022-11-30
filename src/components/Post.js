@@ -12,8 +12,8 @@ export default function Post() {
   const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
 
 useEffect(() => {
-  const {id, content, userName, date} = tweetsRender
-  apiPosts.unshift({id, content, userName, date})
+  const {content, userName, date} = tweetsRender
+  apiPosts.unshift({content, userName, date})
   setTweetMessage('')
         },[tweetsRender])
 
