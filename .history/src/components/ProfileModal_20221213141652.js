@@ -1,16 +1,20 @@
 import {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useAuth } from '../contexts/AuthContext'
+import './ProfileModal.css'
 
 export function StaticExample() {
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const { currentUser } = useAuth()
+  console.log(currentUser.id)
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Profile
       </Button>
 
       <Modal show={show} onHide={handleClose}>

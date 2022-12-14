@@ -1,0 +1,6 @@
+.modal-backdrop.show {
+    opacity:none !important
+}
+.modal-content {
+    background-color: white
+}
