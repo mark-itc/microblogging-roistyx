@@ -1,5 +1,5 @@
 import React, {useContext, createContext, useState} from 'react'
-import { useAuth } from './AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import {getFirestore, collection, getDocs, addDoc, doc, addDocs} from 'firebase/firestore/lite'
 
 import { format } from 'date-fns'
@@ -44,36 +44,30 @@ export function TweetContextProvider({children}) {
   const [tweetRender, setTweetRender] = useState();
   const [tweetMessage, setTweetMessage] = useState([])
   const {currentUser, postCollection} = useAuth()
-  // console.log("currentUser", currentUser)
 
-  async function sendUserTweet(tweetMessage) {
-    console.log(tweetMessage)
-    const tweetObj = {avatar:
-        "https://placekitten.com/200/287",
-        date: date,
-        text: tweetMessage,
-        username: currentUser.email,
-        uid: currentUser.uid,
-      }
-        try {
-          await addDoc(postCollection, tweetObj)
-          // setTweetRender(tweetObj)
-        } catch(e) {
-          console.log("Did not add tweet", e)
-        }
+  // async function sendUserTweet(tweetMessage) {
+  //   console.log(tweetMessage)
+  //   const tweetObj = {avatar:
+  //       "https://placekitten.com/200/287",
+  //       date: date,
+  //       text: tweetMessage,
+  //       username: currentUser.email,
+  //       uid: currentUser.uid,
+  //     }
+  //       try {
+  //         await addDoc(postCollection, tweetObj)
+  //         setTweetRender(tweetObj)
+  //       } catch(e) {
+  //         console.log("Did not add tweet", e)
+  //       }
         
-    }
+  //   }
+
+  
 
      
   return (
-    <TweetContext.Provider value={
-      {posts, 
-      setPosts, 
-      tweetMessage, 
-      setTweetMessage, 
-      tweetRender, 
-      setTweetRender, 
-      sendUserTweet}}>
+    <TweetContext.Provider value={{posts, setPosts}}>
         {children}
     </TweetContext.Provider>
   )

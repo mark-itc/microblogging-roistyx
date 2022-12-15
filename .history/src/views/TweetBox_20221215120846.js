@@ -11,9 +11,9 @@ import { TweetContext } from '../contexts/TweetContext'
 
 
 
-export default function TweetBox() {
+export default function TweetBox({sendUserTweet}) {
 const {currentUser,} = useAuth()
-const {tweetMessage, setTweetMessage, sendUserTweet} = useContext(TweetContext)
+const {tweetMessage, setTweetMessage} = useContext(TweetContext)
 
 console.log("tweetMessage", tweetMessage)
   const navigate = useNavigate()

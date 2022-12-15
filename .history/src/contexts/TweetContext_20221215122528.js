@@ -57,7 +57,7 @@ export function TweetContextProvider({children}) {
       }
         try {
           await addDoc(postCollection, tweetObj)
-          // setTweetRender(tweetObj)
+          setTweetRender(tweetObj)
         } catch(e) {
           console.log("Did not add tweet", e)
         }

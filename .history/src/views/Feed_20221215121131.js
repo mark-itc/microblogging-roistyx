@@ -23,23 +23,24 @@ const [loading, setLoading] = useState(true);
 const { tweetRender, setTweetRender, tweetMessage, setTweetMessage } = useContext(TweetContext)
 const {currentUser, postCollection} = useAuth()
 
+console.log(tweetMessage)
 
-// async function sendUserTweet(tweetMessage) {
-//   console.log(tweetMessage)
-//   const tweetObj = {avatar:
-//       "https://placekitten.com/200/287",
-//       date: date,
-//       text: tweetMessage,
-//       username: currentUser.email,
-//       uid: currentUser.uid,
-//     }
-//       setTweetRender(tweetObj)
-//       try {
-//         await addDoc(postCollection, tweetObj)
-//       } catch(e) {
-//         console.log("Did not add tweet", e)
-//       }
-//   }
+async function sendUserTweet(tweetMessage) {
+  console.log(tweetMessage)
+  const tweetObj = {avatar:
+      "https://placekitten.com/200/287",
+      date: date,
+      text: tweetMessage,
+      username: currentUser.email,
+      uid: currentUser.uid,
+    }
+      setTweetRender(tweetObj)
+      try {
+        await addDoc(postCollection, tweetObj)
+      } catch(e) {
+        console.log("Did not add tweet", e)
+      }
+  }
 
 useEffect(() => {
   async function getTweetList() {
@@ -55,7 +56,7 @@ useEffect(() => {
 
   return (
     <div className="feed">
-      <TweetBox  username={currentUser.email} />
+      <TweetBox  username={currentUser.email} sendUserTweet={sendUserTweet}/>
       {loading ? "" : posts.map(post =>(<Post  
       displayName= {post.username}
       text={post.text}

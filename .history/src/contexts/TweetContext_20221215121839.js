@@ -1,5 +1,5 @@
 import React, {useContext, createContext, useState} from 'react'
-import { useAuth } from './AuthContext'
+import { useAuth } from './AuthContext.js'
 import {getFirestore, collection, getDocs, addDoc, doc, addDocs} from 'firebase/firestore/lite'
 
 import { format } from 'date-fns'
@@ -43,26 +43,26 @@ export function TweetContextProvider({children}) {
   const [posts, setPosts] = useState(true)
   const [tweetRender, setTweetRender] = useState();
   const [tweetMessage, setTweetMessage] = useState([])
-  const {currentUser, postCollection} = useAuth()
-  // console.log("currentUser", currentUser)
+  // const {currentUser, postCollection} = useAuth()
+  console.log("useAuth", useAuth())
 
-  async function sendUserTweet(tweetMessage) {
-    console.log(tweetMessage)
-    const tweetObj = {avatar:
-        "https://placekitten.com/200/287",
-        date: date,
-        text: tweetMessage,
-        username: currentUser.email,
-        uid: currentUser.uid,
-      }
-        try {
-          await addDoc(postCollection, tweetObj)
-          // setTweetRender(tweetObj)
-        } catch(e) {
-          console.log("Did not add tweet", e)
-        }
+  // async function sendUserTweet(tweetMessage) {
+  //   console.log(tweetMessage)
+  //   const tweetObj = {avatar:
+  //       "https://placekitten.com/200/287",
+  //       date: date,
+  //       text: tweetMessage,
+  //       username: currentUser.email,
+  //       uid: currentUser.uid,
+  //     }
+  //       try {
+  //         await addDoc(postCollection, tweetObj)
+  //         setTweetRender(tweetObj)
+  //       } catch(e) {
+  //         console.log("Did not add tweet", e)
+  //       }
         
-    }
+  //   }
 
      
   return (
@@ -72,8 +72,7 @@ export function TweetContextProvider({children}) {
       tweetMessage, 
       setTweetMessage, 
       tweetRender, 
-      setTweetRender, 
-      sendUserTweet}}>
+      setTweetRender}}>
         {children}
     </TweetContext.Provider>
   )

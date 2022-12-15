@@ -20,7 +20,7 @@ export default function Feed() {
 const [posts, setPosts] = useState(true)
 // const [tweetRender, setTweetRender] = useState();
 const [loading, setLoading] = useState(true);
-const { tweetRender, setTweetRender, tweetMessage, setTweetMessage } = useContext(TweetContext)
+const { sendUserTweet, tweetRender, setTweetRender } = useContext(TweetContext)
 const {currentUser, postCollection} = useAuth()
 
 
@@ -55,7 +55,7 @@ useEffect(() => {
 
   return (
     <div className="feed">
-      <TweetBox  username={currentUser.email} />
+      <TweetBox  username={currentUser.email} sendUserTweet={sendUserTweet}/>
       {loading ? "" : posts.map(post =>(<Post  
       displayName= {post.username}
       text={post.text}

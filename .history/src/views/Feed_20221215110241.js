@@ -17,29 +17,29 @@ import {useTweetContext } from '../contexts/TweetContext'
 
 export default function Feed() {
   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
-const [posts, setPosts] = useState(true)
-// const [tweetRender, setTweetRender] = useState();
+// const [posts, setPosts] = useState(true)
+const [tweetRender, setTweetRender] = useState();
 const [loading, setLoading] = useState(true);
-const { tweetRender, setTweetRender, tweetMessage, setTweetMessage } = useContext(TweetContext)
+// const { abba } = useContext(TweetContext)
 const {currentUser, postCollection} = useAuth()
+const {posts, setPosts} = useTweetContext()
 
 
-// async function sendUserTweet(tweetMessage) {
-//   console.log(tweetMessage)
-//   const tweetObj = {avatar:
-//       "https://placekitten.com/200/287",
-//       date: date,
-//       text: tweetMessage,
-//       username: currentUser.email,
-//       uid: currentUser.uid,
-//     }
-//       setTweetRender(tweetObj)
-//       try {
-//         await addDoc(postCollection, tweetObj)
-//       } catch(e) {
-//         console.log("Did not add tweet", e)
-//       }
-//   }
+async function sendUserTweet(tweetMessage) {
+  console.log(tweetMessage)
+  const tweetObj = {avatar:
+      "https://placekitten.com/200/287",
+      date: date,
+      text: tweetMessage,
+      username: currentUser.email,
+      uid: currentUser.uid,
+    }
+      try {
+        await addDoc(postCollection, tweetObj)
+      } catch(e) {
+        console.log("Did not add tweet", e)
+      }
+  }
 
 useEffect(() => {
   async function getTweetList() {
@@ -47,15 +47,13 @@ useEffect(() => {
     setLoading(false)
     const tweetList = docs.map(doc => doc.data())
     setPosts(tweetList)
-    
-    // console.log("live tweetList", tweetList)
   }
   getTweetList() 
-},[tweetRender])
+})
 
   return (
     <div className="feed">
-      <TweetBox  username={currentUser.email} />
+      <TweetBox  username={currentUser.email} sendUserTweet={sendUserTweet}/>
       {loading ? "" : posts.map(post =>(<Post  
       displayName= {post.username}
       text={post.text}

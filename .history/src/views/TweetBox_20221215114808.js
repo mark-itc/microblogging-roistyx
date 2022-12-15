@@ -1,21 +1,21 @@
 import { React, useContext, useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 // import { TweetPosterContext } from '../components/TweetPosterContext'
+import { TweetsRenderContext } from '../components/TweetsRenderContext'
 import { format } from 'date-fns'
 import Button from '@mui/material/Button'
 import './TweetBox.css'
 import app from '../firebase';
 import {getFirestore, collection, getDocs, doc, addDocs, onSnapshot, addDoc} from 'firebase/firestore/lite'
 import { useAuth } from '../contexts/AuthContext'
-import { TweetContext } from '../contexts/TweetContext'
 
 
 
-export default function TweetBox() {
+export default function TweetBox({sendUserTweet}) {
 const {currentUser,} = useAuth()
-const {tweetMessage, setTweetMessage, sendUserTweet} = useContext(TweetContext)
+const [tweetMessage, setTweetMessage] = useState([])
 
-console.log("tweetMessage", tweetMessage)
+
   const navigate = useNavigate()
 
   

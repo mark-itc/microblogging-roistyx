@@ -26,7 +26,7 @@ export default function Post({
   //   apiPosts.unshift({content, userName, date})
   //   setTweetMessage('')
   // },[tweetsRender])
-        
+        console.log(v4())
   return (
     
   <div key={v4()} className='post'>
