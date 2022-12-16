@@ -24,10 +24,9 @@
 //     useEffect(() => {
 //         const unsubscribe = auth.onAuthStateChanged(user => {
 //             setCurrentUser(user)
-//         }) 
+//         })
 //         return unsubscribe
 //     },[])
-    
 
 //     const value = {
 //         currentUser,
@@ -42,5 +41,5 @@
 // }
 
 export default function AuthProvider() {
-<div>"HELLO WORLD!"</div>
+  <div>"HELLO WORLD!"</div>;
 }

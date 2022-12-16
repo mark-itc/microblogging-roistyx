@@ -1,11 +1,11 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 export function StaticExample() {
   return (
     <div
       className="modal show"
-      style={{ display: 'block', position: 'initial' }}
+      style={{ display: "block", position: "initial" }}
     >
       <Modal.Dialog>
         <Modal.Header closeButton>
@@ -24,4 +24,3 @@ export function StaticExample() {
     </div>
   );
 }
-

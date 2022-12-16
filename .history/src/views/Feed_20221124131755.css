@@ -1,6 +1,5 @@
 .feed {
-    flex: 0.4;
-    max-width: 450px;
-    overflow:scroll
-    
+  flex: 0.4;
+  max-width: 450px;
+  overflow: scroll;
 }

@@ -1,17 +1,17 @@
-import {useState} from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useAuth } from '../contexts/AuthContext'
-import './ProfileModal.css'
-import {useTweetContext } from '../contexts/TweetContext'
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useAuth } from "../contexts/AuthContext";
+import "./ProfileModal.css";
+import { useTweetContext } from "../contexts/TweetContext";
 
 export function StaticExample() {
   const [show, setShow] = useState(false);
-  const { currentUser } = useAuth()
-  console.log(currentUser.uid)
-  const {credentials} = useTweetContext
- 
-console.log(credentials)
+  const { currentUser } = useAuth();
+  console.log(currentUser.uid);
+  const { credentials } = useTweetContext;
+
+  console.log(credentials);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,8 +35,7 @@ console.log(credentials)
             </Button>
           </Modal.Footer>
         </Modal>
-        </TweetContextProvider>  
+      </TweetContextProvider>
     </>
   );
 }
-

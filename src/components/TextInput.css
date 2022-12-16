@@ -1,24 +1,23 @@
 .custom-input {
-    border: 1px solid #ccc;
-    color: #FFFFFF;
-    font-size: 1rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: block;
-    width: 95%;
-    border: 1px solid #E5E5E5;
-    background-color: #15202B;
-    margin-bottom: 10px
-
+  border: 1px solid #ccc;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: block;
+  width: 95%;
+  border: 1px solid #e5e5e5;
+  background-color: #15202b;
+  margin-bottom: 10px;
 }
 
 .error-message {
-    font-size: 0.8rem;
-    color: red;
+  font-size: 0.8rem;
+  color: red;
 }
 
 .input-label {
-    font-size: 0.9rem;
-    padding-bottom: 5px;
-    display: block;
+  font-size: 0.9rem;
+  padding-bottom: 5px;
+  display: block;
 }

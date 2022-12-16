@@ -1,15 +1,28 @@
-import React, {useContext, useEffect, createContext, useState, useReducer} from 'react'
-import { useAuth } from './AuthContext'
-import {getFirestore, collection, getDocs, addDoc, doc, addDocs, updateDoc} from 'firebase/firestore/lite'
-import app from '../firebase';
-import { format } from 'date-fns'
+import React, {
+  useContext,
+  useEffect,
+  createContext,
+  useState,
+  useReducer,
+} from "react";
+import { useAuth } from "./AuthContext";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  addDocs,
+  updateDoc,
+} from "firebase/firestore/lite";
+import app from "../firebase";
+import { format } from "date-fns";
 
-export const TweetContext = createContext()
+export const TweetContext = createContext();
 
 // export function useTweetContext() {
 //      return useContext(TweetContext)
 // }
-
 
 export const ACTIONS = {
   ADD_TWEET: "addTweet",
@@ -19,17 +32,16 @@ export const ACTIONS = {
 
 function reducer(tweet, action) {
   switch (action.type) {
-    case ACTIONS.ADD_TWEET: 
-      return func(action.payload)
-      // console.log("tweet", action.payload.text)
-          
-        
-      // [...tweets, newTodo(action.payload.name)];
+    case ACTIONS.ADD_TWEET:
+      return func(action.payload);
+    // console.log("tweet", action.payload.text)
+
+    // [...tweets, newTodo(action.payload.name)];
     // case ACTIONS.TOGGLE_TODO:
-      // return tweets.map((tweet) => {
-      //   if (tweet.id === action.payload.id) {
-      //     return { ...tweet, compavatarlete: !tweet.complete };
-      //   }
+    // return tweets.map((tweet) => {
+    //   if (tweet.id === action.payload.id) {
+    //     return { ...tweet, compavatarlete: !tweet.complete };
+    //   }
     //     return tweet;
     //   });
     // case ACTIONS.DELETE_TODO:
@@ -42,65 +54,68 @@ function reducer(tweet, action) {
 
 async function func(tweetObj) {
   // console.log("tweetObj",tweetObj)
-  const firestoreIntance = getFirestore(app)
-        const postCollection = collection(firestoreIntance, 'posts')
-        
-  try {
-    await addDoc(postCollection, tweetObj)
+  const firestoreIntance = getFirestore(app);
+  const postCollection = collection(firestoreIntance, "posts");
 
-  } catch(e) {
-    console.log("Did not add tweet", e)
+  try {
+    await addDoc(postCollection, tweetObj);
+  } catch (e) {
+    console.log("Did not add tweet", e);
   }
 }
 
-export function TweetContextProvider({children}) {
-  
-  const [posts, setPosts] = useState([])
-  const [tweetRender, setTweetRender] = useState()
-  const [picUrl, setPicUrl] = useState(null)
-  const [tweetMessage, setTweetMessage] = useState([])
-  const { currentUser, postCollection } = useAuth()
-  const [tweet, dispatch] = useReducer(reducer, [])
+export function TweetContextProvider({ children }) {
+  const [posts, setPosts] = useState([]);
+  const [tweetRender, setTweetRender] = useState();
+  const [picUrl, setPicUrl] = useState(null);
+  const [tweetMessage, setTweetMessage] = useState([]);
+  const { currentUser, postCollection } = useAuth();
+  const [tweet, dispatch] = useReducer(reducer, []);
   // console.log("posts", posts)
-  const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
-// console.log("posts", posts)
+  const date =
+    format(new Date(), "yyyy-MM-dd") +
+    "T" +
+    format(new Date(), "HH:mm:ss.ms") +
+    "Z";
+  // console.log("posts", posts)
 
   useEffect(() => {
     async function getTweetList() {
-      const myFirestoreIntance = getFirestore(app)
-      const myPostCollection = collection(myFirestoreIntance, 'posts')
-      console.log("postCollection",myPostCollection)
-      
-        let ref = myFirestoreIntance.ref('notes');
-        return ref
-          .child()
-          .update()
-          .then(() => ref.once('value'))
-          .then(snapshot => snapshot.val())
-          .catch(error => ({
-            errorCode: error.code,
-            errorMessage: error.messag}))
-          
-          
-      
+      const myFirestoreIntance = getFirestore(app);
+      const myPostCollection = collection(myFirestoreIntance, "posts");
+      console.log("postCollection", myPostCollection);
+
+      let ref = myFirestoreIntance.ref("notes");
+      return ref
+        .child()
+        .update()
+        .then(() => ref.once("value"))
+        .then((snapshot) => snapshot.val())
+        .catch((error) => ({
+          errorCode: error.code,
+          errorMessage: error.messag,
+        }));
     }
-    getTweetList() 
-  },[picUrl])
+    getTweetList();
+  }, [picUrl]);
 
-
-     
   return (
-    <TweetContext.Provider value={
-      {
+    <TweetContext.Provider
+      value={{
         date,
-        posts, setPosts, 
-        tweetMessage, setTweetMessage, 
-        tweetRender, setTweetRender,  
-        setPicUrl, picUrl, 
-        tweet, dispatch}}>
-        {children}
+        posts,
+        setPosts,
+        tweetMessage,
+        setTweetMessage,
+        tweetRender,
+        setTweetRender,
+        setPicUrl,
+        picUrl,
+        tweet,
+        dispatch,
+      }}
+    >
+      {children}
     </TweetContext.Provider>
-  )
+  );
 }
-
-

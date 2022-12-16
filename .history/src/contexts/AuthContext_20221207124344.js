@@ -1,68 +1,63 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { auth } from '../firebase'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from "react";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext();
 
-
-async function isCurrentUser()
-  {
-    try {
-        if(!AuthContext)
-        console.log("not logged in")
-    } catch {
-      console.log()
-    }
+async function isCurrentUser() {
+  try {
+    if (!AuthContext) console.log("not logged in");
+  } catch {
+    console.log();
   }
-
-export function useAuth() {
-    // const navigate = useNavigate()
-    // console.log("HELLO WORLD!")
-    // if(!AuthContext.currentUser) 
-    // navigate('/login')
-    
-    // const currentUser = {email: "David"}
-    // return currentUser
-    return useContext(AuthContext)
-    // const a = 12
-    // return a
 }
 
-export function AuthProvider({children}) {
-    const [currentUser, setCurrentUser] = useState();
-    const [loading, setLoading] = useState(true);
+export function useAuth() {
+  // const navigate = useNavigate()
+  // console.log("HELLO WORLD!")
+  // if(!AuthContext.currentUser)
+  // navigate('/login')
 
-    function signup(email, password) {
-        return auth.createUserWithEmailAndPassword(email, password) 
-    }
+  // const currentUser = {email: "David"}
+  // return currentUser
+  return useContext(AuthContext);
+  // const a = 12
+  // return a
+}
 
-    function login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
-    }
+export function AuthProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
-    function logout() {
-        return auth.signOut()
-    }
+  function signup(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
-        }) 
-        return unsubscribe
-    },[])
-    
+  function login(email, password) {
+    return auth.signInWithEmailAndPassword(email, password);
+  }
 
-    const value = {
-        currentUser,
-        signup,
-        login, 
-        logout
-    }
+  function logout() {
+    return auth.signOut();
+  }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
+  const value = {
+    currentUser,
+    signup,
+    login,
+    logout,
+  };
   return (
     <AuthContext.Provider value={value}>
-        {!loading && children}
+      {!loading && children}
     </AuthContext.Provider>
-  
-)
+  );
 }

@@ -1,22 +1,19 @@
-import {useState, useEffect} from 'react'
-import Modal from 'react-bootstrap/Modal';
-import { useAuth } from '../contexts/AuthContext'
-import './ProfileModal.css'
-import {useTweetContext } from '../contexts/TweetContext'
-import { Form, Button, Card, Alert } from 'react-bootstrap'
+import { useState, useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
+import { useAuth } from "../contexts/AuthContext";
+import "./ProfileModal.css";
+import { useTweetContext } from "../contexts/TweetContext";
+import { Form, Button, Card, Alert } from "react-bootstrap";
 
 export function StaticExample() {
   const [show, setShow] = useState(false);
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   // console.log(currentUser.uid)
-  const {posts} = useTweetContext()
+  const { posts } = useTweetContext();
 
   async function handlePicSubmit(e) {
-    console.log(e)
+    console.log(e);
   }
- 
-
-
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -25,33 +22,35 @@ export function StaticExample() {
       <Button variant="primary" onClick={handleShow}>
         Profile
       </Button>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <Form onSubmit={handlePicSubmit}>
-                <Form.Group id='email'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type='email' />
-                </Form.Group>
-                
-                <Button className='w-100' 
-                // disabled={loading} 
-                type='submit'>Sign Up</Button>
-            </Form>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" />
+            </Form.Group>
 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
+            <Button
+              className="w-100"
+              // disabled={loading}
+              type="submit"
+            >
+              Sign Up
             </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal> 
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
-

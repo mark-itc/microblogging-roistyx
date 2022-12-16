@@ -1,92 +1,95 @@
-import { React, useContext, useState, useEffect } from 'react'
+import { React, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TweetPosterContext } from '../components/TweetPosterContext'
-import { TweetsRenderContext } from '../components/TweetsRenderContext'
-import { format } from 'date-fns'
-import Button from '@mui/material/Button'
-import './TweetBox.css'
-import app from '../firebase';
-import {getFirestore, collection, getDocs, doc, addDocs, onSnapshot} from 'firebase/firestore/lite'
-import { useAuth } from '../contexts/AuthContext'
+import { TweetPosterContext } from "../components/TweetPosterContext";
+import { TweetsRenderContext } from "../components/TweetsRenderContext";
+import { format } from "date-fns";
+import Button from "@mui/material/Button";
+import "./TweetBox.css";
+import app from "../firebase";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  addDocs,
+  onSnapshot,
+} from "firebase/firestore/lite";
+import { useAuth } from "../contexts/AuthContext";
 
-const firestoreIntance = getFirestore(app)
-const postCollection = collection(firestoreIntance, 'posts')
-console.log(postCollection)
+const firestoreIntance = getFirestore(app);
+const postCollection = collection(firestoreIntance, "posts");
+console.log(postCollection);
 
 export default function TweetBox() {
-   
-const {currentUser} = useAuth()
-const {tweetMessage, setTweetMessage} = useContext(TweetPosterContext)
+  const { currentUser } = useAuth();
+  const { tweetMessage, setTweetMessage } = useContext(TweetPosterContext);
 
-const [posts, setPosts] = useState(true)
-const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-// useEffect(() => {
-//   async function getTweetList() {
-//     const {docs} = await getDocs(postCollection)
-//     setLoading(false)
-//     const tweetMessage = docs.map(doc => doc.data())
-//     setTweetMessage(tweetMessage)
-//   }
-//   getTweetList()  
-// },[])
+  // useEffect(() => {
+  //   async function getTweetList() {
+  //     const {docs} = await getDocs(postCollection)
+  //     setLoading(false)
+  //     const tweetMessage = docs.map(doc => doc.data())
+  //     setTweetMessage(tweetMessage)
+  //   }
+  //   getTweetList()
+  // },[])
 
-console.log("username", currentUser)
+  console.log("username", currentUser);
 
-
-    
-  
-//   const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
-//   const navigate = useNavigate()
-//   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
-//   const tweetMessageLength = tweetMessage.length
-//   const profileName = localStorage.getItem("PROFILE_NAME")
+  //   const {tweetsRender, setTweetsRender} = useContext(TweetsRenderContext)
+  //   const navigate = useNavigate()
+  //   const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
+  //   const tweetMessageLength = tweetMessage.length
+  //   const profileName = localStorage.getItem("PROFILE_NAME")
   // console.log(noProfileRedirect)
-  
-    // function redirectUser() {
-    //   navigate("/profile")
-    // }
-    // console.log(profileName)
-//  console.log(noProfileRedirect)
-//    function sendTweet() {
-//     fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
-//       method: 'POST',
-//       headers: {
-//         'content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         userName : profileName,
-//         content : tweetMessage,
-//         date : date,   
-//     })}).then(response => {
-//       return response.json()
-//     })
-//   }
+
+  // function redirectUser() {
+  //   navigate("/profile")
+  // }
+  // console.log(profileName)
+  //  console.log(noProfileRedirect)
+  //    function sendTweet() {
+  //     fetch('https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet',{
+  //       method: 'POST',
+  //       headers: {
+  //         'content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         userName : profileName,
+  //         content : tweetMessage,
+  //         date : date,
+  //     })}).then(response => {
+  //       return response.json()
+  //     })
+  //   }
   // console.log(  tweetMessage
   //   )
 
-//   const sendMessage= (e) => {
-    
-//     if (profileName === null) {
-//       redirectUser()
-//     }
-//     if (!tweetMessage ) alert("Add tweet")
-//     e.preventDefault();
-//     if (!tweetMessage ) return 
-//     if (profileName === null) return
-    
-//     setTweetsRender({
-//       content: tweetMessage, 
-//       userName: profileName,
-//       date: date,   
-//     })
-    
-//     sendTweet()
-//     return 
-//   }
+  //   const sendMessage= (e) => {
+
+  //     if (profileName === null) {
+  //       redirectUser()
+  //     }
+  //     if (!tweetMessage ) alert("Add tweet")
+  //     e.preventDefault();
+  //     if (!tweetMessage ) return
+  //     if (profileName === null) return
+
+  //     setTweetsRender({
+  //       content: tweetMessage,
+  //       userName: profileName,
+  //       date: date,
+  //     })
+
+  //     sendTweet()
+  //     return
+  //   }
 
   return (
-    <div className='comment-box'>
+    <div className="comment-box">
       {/* {tweetMessage ? <h1>Redirect</h1> : ""}  */}
       {/* <form>
       <div className='comment-box_input'>
@@ -106,5 +109,5 @@ console.log("username", currentUser)
       </div>
     </form> */}
     </div>
-  )
+  );
 }

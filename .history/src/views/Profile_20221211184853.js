@@ -5,13 +5,12 @@
 // import '../components/Button.css'
 // import './Profile.css'
 
-
 // function Profile() {
 //     const {profile, setProfile} = useContext(UserContext)
 //     const navigate = useNavigate();
 
 //     function usernameCreated() {
-      
+
 //       if (profile) {
 //         navigate("/");
 //       }
@@ -25,13 +24,13 @@
 //         return profile
 //     }
 //     return (
-//       <div className="profile"> 
-//         <h1>Profile</h1>   
+//       <div className="profile">
+//         <h1>Profile</h1>
 //         <form>
 //           <div className='profile-box_input'>
 //             <input onChange={(event) => setProfile(event.target.value)} placeholder="Your name" value={profile} type="text"/>
-//               <Button 
-//               className='profile-box_input-Button' 
+//               <Button
+//               className='profile-box_input-Button'
 //               type='submit' onClick={submitProfileName}>
 //               Save
 //             </Button>

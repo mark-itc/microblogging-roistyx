@@ -1,21 +1,18 @@
-import React, {useContext, createContext} from 'react'
+import React, { useContext, createContext } from "react";
 
-export const TweetContext = createContext()
+export const TweetContext = createContext();
 
 export function useTweetContext() {
-     return useContext(TweetContext)
+  return useContext(TweetContext);
 }
 
-export function TweetContextProvider({children}) {
-
-     const credentials = {
-        username: "Roie",
-    }
+export function TweetContextProvider({ children }) {
+  const credentials = {
+    username: "Roie",
+  };
   return (
     <TweetContext.Provider value={"Hello worl"}>
-        {children}
+      {children}
     </TweetContext.Provider>
-  )
+  );
 }
-
-

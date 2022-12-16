@@ -1,11 +1,9 @@
 body {
-  
   /* background-color: #15202B; */
-  
 }
 
 .card {
-  color: black 
+  color: black;
 }
 
 .app {
@@ -15,20 +13,20 @@ body {
   margin-left: auto;
   margin-right: auto;
 
-  margin-top: 5px
+  margin-top: 5px;
 }
 
 .feed-comment_box-container {
-  color:#FFFFFF;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   max-width: 450px;
   width: 100%;
-  margin:auto
+  margin: auto;
 }
 
 .comment-box_input-Button {
-  background-color: #007BFF;
+  background-color: #007bff;
   width: 80px;
   align-items: center;
   text-align: center;

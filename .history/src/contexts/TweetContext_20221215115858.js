@@ -1,15 +1,21 @@
-import React, {useContext, createContext, useState} from 'react'
-import { useAuth } from '../contexts/AuthContext'
-import {getFirestore, collection, getDocs, addDoc, doc, addDocs} from 'firebase/firestore/lite'
+import React, { useContext, createContext, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  addDocs,
+} from "firebase/firestore/lite";
 
-import { format } from 'date-fns'
+import { format } from "date-fns";
 
-export const TweetContext = createContext()
+export const TweetContext = createContext();
 
 export function useTweetContext() {
-     return useContext(TweetContext)
+  return useContext(TweetContext);
 }
-
 
 export const ACTIONS = {
   ADD_TWEET: "add-tweet",
@@ -20,8 +26,8 @@ export const ACTIONS = {
 function reducer(todos, action) {
   switch (action.type) {
     case ACTIONS.ADD_TWEET:
-      return 
-      // [...todos, newTodo(action.payload.name)];
+      return;
+    // [...todos, newTodo(action.payload.name)];
     case ACTIONS.TOGGLE_TODO:
       return todos.map((todo) => {
         if (todo.id === action.payload.id) {
@@ -37,13 +43,17 @@ function reducer(todos, action) {
   }
 }
 
-const date = format(new Date(), 'yyyy-MM-dd')+'T'+format(new Date(), 'HH:mm:ss.ms')+"Z"
+const date =
+  format(new Date(), "yyyy-MM-dd") +
+  "T" +
+  format(new Date(), "HH:mm:ss.ms") +
+  "Z";
 
-export function TweetContextProvider({children}) {
-  const [posts, setPosts] = useState(true)
+export function TweetContextProvider({ children }) {
+  const [posts, setPosts] = useState(true);
   const [tweetRender, setTweetRender] = useState();
-  const [tweetMessage, setTweetMessage] = useState([])
-  const {currentUser, postCollection} = useAuth()
+  const [tweetMessage, setTweetMessage] = useState([]);
+  const { currentUser, postCollection } = useAuth();
 
   // async function sendUserTweet(tweetMessage) {
   //   console.log(tweetMessage)
@@ -60,17 +70,12 @@ export function TweetContextProvider({children}) {
   //       } catch(e) {
   //         console.log("Did not add tweet", e)
   //       }
-        
+
   //   }
 
-  
-
-     
   return (
-    <TweetContext.Provider value={{posts, setPosts}}>
-        {children}
+    <TweetContext.Provider value={{ posts, setPosts }}>
+      {children}
     </TweetContext.Provider>
-  )
+  );
 }
-
-

@@ -1,6 +1,6 @@
 // import {createContext, useState, useContext} from 'react'
 
-// export const TweetContext = createContext() 
+// export const TweetContext = createContext()
 
 // export function useTweetContext() {
 //   return useContext(useTweetContext)
@@ -11,35 +11,31 @@
 //   const credentials = {
 //     username: "Roie",
 //     password: "12345"
-// } 
+// }
 //   return (
 //     <TweetContext.Provider value={{credentials}}>
 //       {children}
-   
+
 //     </TweetContext.Provider>
 //   )
 // }
 
+import React, { useContext, createContext } from "react";
 
-import React, {useContext, createContext} from 'react'
-
-export const TweetContext = createContext()
+export const TweetContext = createContext();
 
 export function useTweetContext() {
-     return useContext(TweetContext)
+  return useContext(TweetContext);
 }
 
-export function TweetProvider({children}) {
-
-     const credentials = {
-        username: "Roie",
-        password: "12345"
-    }
+export function TweetProvider({ children }) {
+  const credentials = {
+    username: "Roie",
+    password: "12345",
+  };
   return (
-    <TweetContext.Provider value={{credentials}}>
-        {children}
+    <TweetContext.Provider value={{ credentials }}>
+      {children}
     </TweetContext.Provider>
-  )
+  );
 }
-
-

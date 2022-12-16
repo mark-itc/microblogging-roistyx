@@ -1,6 +1,5 @@
 .feed {
-    flex: 0.4;
-    max-width: 450px;
-    overflow:hidden
-    
+  flex: 0.4;
+  max-width: 450px;
+  overflow: hidden;
 }

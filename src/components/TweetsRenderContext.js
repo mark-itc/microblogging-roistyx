@@ -1,3 +1,3 @@
-import {createContext} from 'react'
+import { createContext } from "react";
 
-export const TweetsRenderContext = createContext(null) 
+export const TweetsRenderContext = createContext(null);

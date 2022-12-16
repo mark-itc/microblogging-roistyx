@@ -1,21 +1,17 @@
-import React, {useContext, createContext, useState} from 'react'
+import React, { useContext, createContext, useState } from "react";
 
-
-export const TweetContext = createContext()
+export const TweetContext = createContext();
 
 export function useTweetContext() {
-     return useContext(TweetContext)
+  return useContext(TweetContext);
 }
 
-export function TweetContextProvider({children}) {
-  const [posts, setPosts] = useState(true)
+export function TweetContextProvider({ children }) {
+  const [posts, setPosts] = useState(true);
 
-     
   return (
-    <TweetContext.Provider value={{posts, setPosts}}>
-        {children}
+    <TweetContext.Provider value={{ posts, setPosts }}>
+      {children}
     </TweetContext.Provider>
-  )
+  );
 }
-
-

@@ -1,13 +1,13 @@
-import {useState} from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useAuth } from '../contexts/AuthContext'
-import './ProfileModal.css'
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useAuth } from "../contexts/AuthContext";
+import "./ProfileModal.css";
 
 export function StaticExample() {
   const [show, setShow] = useState(false);
-  const { currentUser } = useAuth()
-  console.log(currentUser.displayname)
+  const { currentUser } = useAuth();
+  console.log(currentUser.displayname);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -34,4 +34,3 @@ export function StaticExample() {
     </>
   );
 }
-

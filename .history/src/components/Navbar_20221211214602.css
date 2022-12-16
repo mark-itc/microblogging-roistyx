@@ -1,37 +1,37 @@
 .navbar {
-    display: flex;
-    margin-bottom: 20px;
-    padding: 0;
-    display: flex;
-    justify-content: left;
-    width: 80vw;
-    height: 58px;
-    position: fixed;
-    background-color:#343A40;
-    border-radius: 5px;
+  display: flex;
+  margin-bottom: 20px;
+  padding: 0;
+  display: flex;
+  justify-content: left;
+  width: 80vw;
+  height: 58px;
+  position: fixed;
+  background-color: #343a40;
+  border-radius: 5px;
 }
 .menu-items {
-    display: flex;
-    position:absolute;
-    width: 5%;
-    text-align: center;
-    padding: 18px;
+  display: flex;
+  position: absolute;
+  width: 5%;
+  text-align: center;
+  padding: 18px;
 }
 
 .link-element {
-    text-decoration: none;
+  text-decoration: none;
 }
 a {
-    color: white
+  color: white;
 }
 
 a:hover {
-    color: grey;
-} 
+  color: grey;
+}
 
 .modal {
-    overflow:visible;
+  overflow: visible;
 
-    position: absolute;
-    z-index: 100
+  position: absolute;
+  z-index: 100;
 }

@@ -1,27 +1,24 @@
 .button-container {
-    display: flex;
-    justify-content: end;
-
+  display: flex;
+  justify-content: end;
 }
 .uikit-custom-button {
-    border: 2px solid rgb(0, 116, 54);
-    background-color: rgb(49, 196, 69);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    width: 68px;
-    height: 34px;
-    background-color: #007BFF;
-   
-    
+  border: 2px solid rgb(0, 116, 54);
+  background-color: rgb(49, 196, 69);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 68px;
+  height: 34px;
+  background-color: #007bff;
 }
 
 .uikit-custom-button.primary {
-    border: 2px solid rgb(30, 30, 156);
-    background-color: #007BFF;
+  border: 2px solid rgb(30, 30, 156);
+  background-color: #007bff;
 }
 
 .uikit-custom-button.danger {
-    border: 2px solid rgb(116, 0, 0);
-    background-color: rgb(178, 48, 67);
+  border: 2px solid rgb(116, 0, 0);
+  background-color: rgb(178, 48, 67);
 }

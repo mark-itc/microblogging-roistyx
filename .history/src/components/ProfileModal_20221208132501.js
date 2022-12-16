@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 function StaticExample() {
   const [show, setShow] = useState(false);
@@ -32,4 +32,4 @@ function StaticExample() {
   );
 }
 
-export default StaticExample()
+export default StaticExample();

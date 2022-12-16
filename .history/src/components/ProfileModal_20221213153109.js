@@ -1,20 +1,19 @@
-import {useState, useEffect} from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { useAuth } from '../contexts/AuthContext'
-import './ProfileModal.css'
-import {useTweetContext } from '../contexts/TweetContext'
+import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useAuth } from "../contexts/AuthContext";
+import "./ProfileModal.css";
+import { useTweetContext } from "../contexts/TweetContext";
 
 export function StaticExample() {
   const [show, setShow] = useState(false);
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   // console.log(currentUser.uid)
-  const {posts, setPosts} = useTweetContext()
- 
-useEffect(() => {
-  console.log(posts)  
-     },[])
+  const { posts, setPosts } = useTweetContext();
 
+  useEffect(() => {
+    console.log(posts);
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -23,21 +22,20 @@ useEffect(() => {
       <Button variant="primary" onClick={handleShow}>
         Profile
       </Button>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal> 
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
-

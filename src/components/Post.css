@@ -1,27 +1,27 @@
 .post {
-    display: flex;
-    flex-direction: column;
-    /* padding-bottom: 10px; */
-    background: #343A40;
-    border-radius: 6px;
-    margin: 10px 0 0 0;
-    padding: 8px
-  }
+  display: flex;
+  flex-direction: column;
+  /* padding-bottom: 10px; */
+  background: #343a40;
+  border-radius: 6px;
+  margin: 10px 0 0 0;
+  padding: 8px;
+}
 
-  .header {
-    display: flex;
-    justify-content: space-between; 
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .username {
-    color:#6C757D
-  }
+.username {
+  color: #6c757d;
+}
 
-  .date {
-    /* display: inline-block; */
-  }
+.date {
+  /* display: inline-block; */
+}
 
-  .post-body {
-    padding: 15px 0 15px 0;
-    overflow:auto
-  }
+.post-body {
+  padding: 15px 0 15px 0;
+  overflow: auto;
+}
