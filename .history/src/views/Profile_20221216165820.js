@@ -11,10 +11,6 @@ import {
   addDoc,
   doc,
   addDocs,
-  query, 
-  where, 
-  updateDoc
-  
 } from "firebase/firestore/lite";
 import {
   getStorage,
@@ -69,70 +65,44 @@ function reducer(state, action) {
 
 export function Profile() {
   const [show, setShow] = useState(false);
-  const [picUpdate, setPicUpdate] = useState([]);
   const [progress, setProgress] = useState(0);
   const [state, dispatch] = useReducer(reducer, initialProfileState);
   const { currentUser } = useAuth();
   // console.log(currentUser.uid)
   const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
+  // console.log(posts[0].uid)
 
-// J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
-  // RojxVopMuurfZf26tw7Q caca@
-  // yiTWsoOcVmTb14T4pdi4vYHQTjj1
-
-  async function getTweetList() {
+  async function func(tweetObj) {
+    // console.log("tweetObj",tweetObj)
     const firestoreIntance = getFirestore(app);
     const postCollection = collection(firestoreIntance, "posts");
-    // const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
-    const { docs } = await getDocs(postCollection);
-    // const tweetList = docs.map((doc) => setPicUpdate({
-    //   ...picUpdate,
-    //     id: doc.id,
-    //     uid: doc.data().uid,
-    // }))
-    // const recon = tweetList.map((tweet) => 
-    // tweet.uid === currentUser.uid)
-    // console.log("tweetList", tweetList)
-
-    
-    
-    docs.forEach(doc => {
-      getTweetList(doc.id, doc.data().uid === currentUser.uid)
-    }) 
   
-      async function getTweetList(id, bol) {
-        if (bol) {
-          const firestoreIntance = getFirestore(app);
-      const docRef = doc(firestoreIntance, "posts", id);
+    try {
+      await addDoc(postCollection, tweetObj);
+    } catch (e) {
+      console.log("Did not add tweet", e);
+    }
+  }
 
-      const data = {
-        avatar: picUrl,
-      };
-      updateDoc(docRef, data)
-        .then((docRef) => {
-          console.log(
-            "A New Document Field has been added to an existing document"
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-          console.log("true", bol)
-        }
-        else {
-          console.log("false", bol)
-        }
+  async function getTweetList() {
+    try {
+      const { docs } = await getDocs(postCollection);
+
+    const tweetList = docs.map((doc) => doc.data());
+
+    console.log("live tweetList", tweetList)
+    } catch(e) {
+      console.log("Get tweetes failed",e)
     }
   }
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    if (true) {
+      getTweetList() 
+      return}
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +127,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );
@@ -171,12 +140,17 @@ export function Profile() {
         <Form.Label>Upload profile picture</Form.Label>
         <Form.Control
           onChange={(e) =>
-            dispatch({
+            [dispatch({
               type: ACTIONS.PIC_UPLOADER,
               value: e.target.files[0],
               key: "profilePic",
               userId: currentUser.uid,
-            })
+            }), 
+            
+            dispatch({
+              type: ACTIONS.PIC_UPDATE,
+              userId: currentUser.uid,
+            })]
           }
           type="file"
           accept="image/*"

@@ -69,14 +69,13 @@ function reducer(state, action) {
 
 export function Profile() {
   const [show, setShow] = useState(false);
-  const [picUpdate, setPicUpdate] = useState([]);
   const [progress, setProgress] = useState(0);
   const [state, dispatch] = useReducer(reducer, initialProfileState);
   const { currentUser } = useAuth();
   // console.log(currentUser.uid)
   const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
+  console.log("currentUser",currentUser.uid)
 
 // J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
   // RojxVopMuurfZf26tw7Q caca@
@@ -87,28 +86,24 @@ export function Profile() {
     const postCollection = collection(firestoreIntance, "posts");
     // const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
     const { docs } = await getDocs(postCollection);
-    // const tweetList = docs.map((doc) => setPicUpdate({
-    //   ...picUpdate,
-    //     id: doc.id,
-    //     uid: doc.data().uid,
-    // }))
-    // const recon = tweetList.map((tweet) => 
-    // tweet.uid === currentUser.uid)
-    // console.log("tweetList", tweetList)
+    const tweetList = docs.map((doc) => doc.data())
+    const recon = tweetList.map((tweet) => 
+    tweet.uid === currentUser.uid)
+    // console.log("tweetList", recon)
 
-    
-    
-    docs.forEach(doc => {
-      getTweetList(doc.id, doc.data().uid === currentUser.uid)
-    }) 
-  
-      async function getTweetList(id, bol) {
+    for (let i = 0; i < tweetList.length; i++) {
+      console.log("tweetList[i]",docs.key)
+      // getTweetList(tweetList[i])
+    }
+
+
+      async function getTweetList(bol) {
         if (bol) {
           const firestoreIntance = getFirestore(app);
-      const docRef = doc(firestoreIntance, "posts", id);
+      const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
 
       const data = {
-        avatar: picUrl,
+        avatar: "520",
       };
       updateDoc(docRef, data)
         .then((docRef) => {
@@ -123,16 +118,19 @@ export function Profile() {
         }
         else {
           console.log("false", bol)
+  
         }
+      
     }
   }
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    if(true) {
+      getTweetList()
+      return
+    }
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +155,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );

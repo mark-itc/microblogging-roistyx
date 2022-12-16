@@ -76,7 +76,7 @@ export function Profile() {
   // console.log(currentUser.uid)
   const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
+  console.log("currentUser",currentUser.uid)
 
 // J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
   // RojxVopMuurfZf26tw7Q caca@
@@ -87,28 +87,35 @@ export function Profile() {
     const postCollection = collection(firestoreIntance, "posts");
     // const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
     const { docs } = await getDocs(postCollection);
-    // const tweetList = docs.map((doc) => setPicUpdate({
-    //   ...picUpdate,
-    //     id: doc.id,
-    //     uid: doc.data().uid,
-    // }))
+    const tweetList = docs.map((doc) => setPicUpdate({
+      ...picUpdate,
+        id: doc.id,
+        uid: doc.data().uid,
+    }))
     // const recon = tweetList.map((tweet) => 
     // tweet.uid === currentUser.uid)
-    // console.log("tweetList", tweetList)
+    console.log("tweetList", tweetList)
 
     
-    
-    docs.forEach(doc => {
-      getTweetList(doc.id, doc.data().uid === currentUser.uid)
+    const querySnapshot = await getDocs(collection(docs, `posts`))
+    const todos = []
+    querySnapshot.forEach(doc => {
+      getTweetList_fake(doc.id, doc.data().uid === currentUser.uid)
+            
+       
     }) 
-  
+    function getTweetList_fake(a, b) {console.log(a, b)}
+        
+    
+
+
       async function getTweetList(id, bol) {
         if (bol) {
           const firestoreIntance = getFirestore(app);
-      const docRef = doc(firestoreIntance, "posts", id);
+      const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
 
       const data = {
-        avatar: picUrl,
+        avatar: "520",
       };
       updateDoc(docRef, data)
         .then((docRef) => {
@@ -123,16 +130,19 @@ export function Profile() {
         }
         else {
           console.log("false", bol)
+  
         }
+      
     }
   }
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    if(true) {
+      getTweetList()
+      return
+    }
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +167,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );

@@ -12,8 +12,7 @@ import {
   doc,
   addDocs,
   query, 
-  where, 
-  updateDoc
+  where
   
 } from "firebase/firestore/lite";
 import {
@@ -55,11 +54,9 @@ function reducer(state, action) {
         [action.key]: action.value,
       }
       case ACTIONS.PIC_UPDATE:
-      return {
-        ...state,
-      [action.key]: action.value,
+      return console.log(action.value)
       
-      }
+      
     default:
       return state;
   }
@@ -69,14 +66,13 @@ function reducer(state, action) {
 
 export function Profile() {
   const [show, setShow] = useState(false);
-  const [picUpdate, setPicUpdate] = useState([]);
   const [progress, setProgress] = useState(0);
   const [state, dispatch] = useReducer(reducer, initialProfileState);
   const { currentUser } = useAuth();
   // console.log(currentUser.uid)
   const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
+  console.log("currentUser",currentUser.uid)
 
 // J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
   // RojxVopMuurfZf26tw7Q caca@
@@ -87,52 +83,48 @@ export function Profile() {
     const postCollection = collection(firestoreIntance, "posts");
     // const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
     const { docs } = await getDocs(postCollection);
-    // const tweetList = docs.map((doc) => setPicUpdate({
-    //   ...picUpdate,
-    //     id: doc.id,
-    //     uid: doc.data().uid,
-    // }))
-    // const recon = tweetList.map((tweet) => 
-    // tweet.uid === currentUser.uid)
-    // console.log("tweetList", tweetList)
+    const tweetList = docs.map((doc) => doc.data())
+    const recon = tweetList.map((tweet) => 
+    tweet.uid === currentUser.uid)
+    console.log("recon", recon)
 
-    
-    
-    docs.forEach(doc => {
-      getTweetList(doc.id, doc.data().uid === currentUser.uid)
-    }) 
-  
-      async function getTweetList(id, bol) {
-        if (bol) {
-          const firestoreIntance = getFirestore(app);
-      const docRef = doc(firestoreIntance, "posts", id);
+    for (let i = 0; i < recon.length; i++) {
+      dispatch({
+        type: ACTIONS.PIC_UPDATE,
+        payload: {
+          updater: recon[i]
+        },
+      })
 
-      const data = {
-        avatar: picUrl,
-      };
-      updateDoc(docRef, data)
-        .then((docRef) => {
-          console.log(
-            "A New Document Field has been added to an existing document"
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-          console.log("true", bol)
-        }
-        else {
-          console.log("false", bol)
-        }
+      
     }
+
+    //   async function getTweetList() {
+  //     const firestoreIntance = getFirestore(app);
+  //     const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
+
+  //     const data = {
+  //       avatar: "613",
+  //     };
+  //     updateDoc(docRef, data)
+  //       .then((docRef) => {
+  //         console.log(
+  //           "A New Document Field has been added to an existing document"
+  //         );
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
   }
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    if(true) {
+      getTweetList()
+      return
+    }
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +149,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );

@@ -76,7 +76,7 @@ export function Profile() {
   // console.log(currentUser.uid)
   const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
+  console.log("currentUser",currentUser.uid)
 
 // J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
   // RojxVopMuurfZf26tw7Q caca@
@@ -100,8 +100,14 @@ export function Profile() {
     
     docs.forEach(doc => {
       getTweetList(doc.id, doc.data().uid === currentUser.uid)
+            
+       
     }) 
-  
+    function getTweetList_fake(a, b) {console.log(a, b)}
+        
+    
+
+
       async function getTweetList(id, bol) {
         if (bol) {
           const firestoreIntance = getFirestore(app);
@@ -123,16 +129,19 @@ export function Profile() {
         }
         else {
           console.log("false", bol)
+  
         }
+      
     }
   }
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    if(true) {
+      getTweetList()
+      return
+    }
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +166,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );

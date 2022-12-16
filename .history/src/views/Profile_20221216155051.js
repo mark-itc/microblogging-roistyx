@@ -5,18 +5,6 @@ import "./Profile.css";
 import { TweetContext } from "../contexts/TweetContext";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  doc,
-  addDocs,
-  query, 
-  where, 
-  updateDoc
-  
-} from "firebase/firestore/lite";
-import {
   getStorage,
   ref,
   uploadBytesResumable,
@@ -34,105 +22,40 @@ const storage = getStorage(app);
 // const postCollection = collection(firestoreIntance, 'posts')
 
 const ACTIONS = {
-  PIC_UPLOADER: "pic_upload",
-  PIC_UPDATE: "pic-update",
+  UPDATE_PIC: "upload-pic",
 };
 
 const initialProfileState = {
   userId: "",
   userName: "",
   profilePic: "https://placekitten.com/200/287",
-  uid: null
 };
-
-
 
 function reducer(state, action) {
   switch (action.type) {
-    case ACTIONS.PIC_UPLOADER:
+    case ACTIONS.UPDATE_PIC:
       return {
         ...state,
         [action.key]: action.value,
-      }
-      case ACTIONS.PIC_UPDATE:
-      return {
-        ...state,
-      [action.key]: action.value,
-      
-      }
+      };
     default:
       return state;
   }
 }
 
-
-
 export function Profile() {
   const [show, setShow] = useState(false);
-  const [picUpdate, setPicUpdate] = useState([]);
   const [progress, setProgress] = useState(0);
   const [state, dispatch] = useReducer(reducer, initialProfileState);
   const { currentUser } = useAuth();
   // console.log(currentUser.uid)
-  const { picUrl, setPicUrl, posts, postCollection } = useContext(TweetContext);
+  const { picUrl, setPicUrl, posts } = useContext(TweetContext);
 
-  // console.log("currentUser",currentUser.uid)
-
-// J0NORXMKzJOwl6xkdZ2OFjeZRKH2 example@
-  // RojxVopMuurfZf26tw7Q caca@
-  // yiTWsoOcVmTb14T4pdi4vYHQTjj1
-
-  async function getTweetList() {
-    const firestoreIntance = getFirestore(app);
-    const postCollection = collection(firestoreIntance, "posts");
-    // const docRef = doc(firestoreIntance, "posts", "1hj5vAs5Sef7ljRFsFLI");
-    const { docs } = await getDocs(postCollection);
-    // const tweetList = docs.map((doc) => setPicUpdate({
-    //   ...picUpdate,
-    //     id: doc.id,
-    //     uid: doc.data().uid,
-    // }))
-    // const recon = tweetList.map((tweet) => 
-    // tweet.uid === currentUser.uid)
-    // console.log("tweetList", tweetList)
-
-    
-    
-    docs.forEach(doc => {
-      getTweetList(doc.id, doc.data().uid === currentUser.uid)
-    }) 
-  
-      async function getTweetList(id, bol) {
-        if (bol) {
-          const firestoreIntance = getFirestore(app);
-      const docRef = doc(firestoreIntance, "posts", id);
-
-      const data = {
-        avatar: picUrl,
-      };
-      updateDoc(docRef, data)
-        .then((docRef) => {
-          console.log(
-            "A New Document Field has been added to an existing document"
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-          console.log("true", bol)
-        }
-        else {
-          console.log("false", bol)
-        }
-    }
-  }
+  console.log(new Array(posts))
 
 
   function handleSubmit(e) {
-    // if(true) {
-    //   getTweetList()
-    //   return
-    // }
+    // console.log(state.profilePic)
     if (state.profilePic === null) {
       alert("Please choose a file first!");
     }
@@ -157,8 +80,7 @@ export function Profile() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setPicUrl(url);
           // console.log(url)
-          setProgress("")
-          getTweetList()
+          setProgress("");
         });
       }
     );
@@ -172,7 +94,7 @@ export function Profile() {
         <Form.Control
           onChange={(e) =>
             dispatch({
-              type: ACTIONS.PIC_UPLOADER,
+              type: ACTIONS.UPDATE_PIC,
               value: e.target.files[0],
               key: "profilePic",
               userId: currentUser.uid,
