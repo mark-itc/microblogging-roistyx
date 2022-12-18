@@ -14,14 +14,13 @@
 .menu-items {
   display: flex;
   padding: 18px;
-  color: white;
 }
 
 .link-element {
   text-decoration: none;
 }
 
-a {
+.custom-link {
   color: white;
   text-decoration: none;
 }

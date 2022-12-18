@@ -1,10 +1,10 @@
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useEffect, useReducer, form, useContext } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import "./Profile.css";
+import { TweetContext } from "../contexts/TweetContext";
 import { Form, Button, Figure, ListGroup } from "react-bootstrap";
 import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { useAuth } from "../contexts/AuthContext";
-import { TweetContext } from "../contexts/TweetContext";
 import app from "../firebase";
-import "./Profile.css";
 
 const storage = getStorage(app);
 
@@ -13,9 +13,21 @@ const ACTIONS = {
   PIC_UPDATE: "pic-update",
 };
 
+const initialProfileState = {
+  userId: "",
+  userName: "",
+  profilePic: "https://placekitten.com/200/287",
+  uid: null,
+};
+
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.PIC_UPLOADER:
+      return {
+        ...state,
+        [action.key]: action.value,
+      };
+    case ACTIONS.PIC_UPDATE:
       return {
         ...state,
         [action.key]: action.value,
@@ -26,10 +38,11 @@ function reducer(state, action) {
 }
 
 export function Profile() {
+  const [picUpdate, setPicUpdate] = useState([]);
   const [progress, setProgress] = useState("");
-  const [state, dispatch] = useReducer(reducer);
+  const [state, dispatch] = useReducer(reducer, initialProfileState);
   const { currentUser } = useAuth();
-  const { userUrl, getProfilePic } = useContext(TweetContext);
+  const { picUrl, getProfilePic } = useContext(TweetContext);
 
   useEffect(() => {
     getProfilePic();
@@ -48,7 +61,7 @@ export function Profile() {
         const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        setProgress(percent + "%");
+        setProgress(percent);
       },
       (err) => console.log(err)
     );
@@ -64,10 +77,11 @@ export function Profile() {
               className="m-3"
               width={250}
               alt="Profile Picture"
-              src={userUrl}
+              src={picUrl}
             />
           </ListGroup.Item>
           <ListGroup.Item>Your email: {currentUser.email}</ListGroup.Item>
+          <ListGroup.Item>Morbi leo risus</ListGroup.Item>
         </ListGroup>
       ) : (
         "No user logged in"
@@ -90,7 +104,7 @@ export function Profile() {
         <Button className="mb-3" onClick={handleSubmit}>
           Upload
         </Button>
-        {progress > 0 ? <h3>{progress}</h3> : ""}
+        {progress ? <h3>{progress}</h3> : ""}
       </Form.Group>
     </div>
   );

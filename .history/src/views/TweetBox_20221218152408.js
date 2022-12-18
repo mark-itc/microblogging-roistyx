@@ -1,8 +1,12 @@
 import { React, useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
 import "./TweetBox.css";
+import app from "../firebase";
+import { ref, getDownloadURL, listAll, getStorage } from "firebase/storage";
 import { useAuth } from "../contexts/AuthContext";
 import { TweetContext, ACTIONS } from "../contexts/TweetContext";
+
+const storage = getStorage(app);
 
 export default function TweetBox() {
   const { currentUser } = useAuth();
@@ -10,6 +14,7 @@ export default function TweetBox() {
     tweetMessage,
     setTweetMessage,
     getProfilePic,
+    setUserUrl,
     userUrl,
     date,
     dispatch,
@@ -35,6 +40,7 @@ export default function TweetBox() {
   const sendMessage = (e) => {
     e.preventDefault();
     if (currentUser.email === null) {
+      // redirectUser()
     }
     if (!tweetMessage) alert("Add tweet");
 
@@ -62,7 +68,10 @@ export default function TweetBox() {
           ) : (
             ""
           )}
+          {/* <button onClick={addTweet}>Do something</button> */}
           <Button
+            // disabled={tweetMessage.length >= 140 ?
+            //   true : false}
             className="comment-box_input-Button"
             variant="contained"
             type="submit"

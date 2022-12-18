@@ -1,10 +1,10 @@
 import { useState, useEffect, useReducer, useContext } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import "./Profile.css";
+import { TweetContext } from "../contexts/TweetContext";
 import { Form, Button, Figure, ListGroup } from "react-bootstrap";
 import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
-import { useAuth } from "../contexts/AuthContext";
-import { TweetContext } from "../contexts/TweetContext";
 import app from "../firebase";
-import "./Profile.css";
 
 const storage = getStorage(app);
 
@@ -13,9 +13,21 @@ const ACTIONS = {
   PIC_UPDATE: "pic-update",
 };
 
+const initialProfileState = {
+  userId: "",
+  userName: "",
+  profilePic: "https://placekitten.com/200/287",
+  uid: null,
+};
+
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.PIC_UPLOADER:
+      return {
+        ...state,
+        [action.key]: action.value,
+      };
+    case ACTIONS.PIC_UPDATE:
       return {
         ...state,
         [action.key]: action.value,

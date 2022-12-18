@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Profile } from "../views/Profile";
 import "./Navbar.css";
 
 export default function Navbar() {
   const { logout, currentUser } = useAuth();
-  const [error, setError] = useState();
-  // console.log("Navbar currentuser", currentUser)
+  const [setError] = useState();
+
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -18,7 +17,6 @@ export default function Navbar() {
       navigate("/login");
     } catch {
       setError("Failed to log out");
-      // console.log(error
     }
   }
 
@@ -48,23 +46,17 @@ export default function Navbar() {
           Log Out
         </Button>
       ) : (
-        <Button
-          className="white"
-          variant="link"
-          onClick={() => navigate("/login")}
-        >
+        <Button variant="link" onClick={() => navigate("/login")}>
           Log in
         </Button>
       )}
-      <div className="menu-items">
-        {currentUser ? (
-          <span>
-            Logged in as <strong> {currentUser.email}</strong>
-          </span>
-        ) : (
-          <span>Hello, Guest!</span>
-        )}
-      </div>
+      {!currentUser ? (
+        ""
+      ) : (
+        <div className="menu-items">
+          Logged in as<strong> {currentUser.email}</strong>
+        </div>
+      )}
     </div>
   );
 }

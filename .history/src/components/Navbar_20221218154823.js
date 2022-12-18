@@ -48,23 +48,17 @@ export default function Navbar() {
           Log Out
         </Button>
       ) : (
-        <Button
-          className="white"
-          variant="link"
-          onClick={() => navigate("/login")}
-        >
+        <Button variant="link" onClick={() => navigate("/login")}>
           Log in
         </Button>
       )}
-      <div className="menu-items">
-        {currentUser ? (
-          <span>
-            Logged in as <strong> {currentUser.email}</strong>
-          </span>
-        ) : (
-          <span>Hello, Guest!</span>
-        )}
-      </div>
+      {!currentUser ? (
+        ""
+      ) : (
+        <div className="menu-items">
+          <strong>Logged in as {currentUser.email}</strong>
+        </div>
+      )}
     </div>
   );
 }

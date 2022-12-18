@@ -62,7 +62,10 @@ export default function TweetBox() {
           ) : (
             ""
           )}
+          {/* <button onClick={addTweet}>Do something</button> */}
           <Button
+            // disabled={tweetMessage.length >= 140 ?
+            //   true : false}
             className="comment-box_input-Button"
             variant="contained"
             type="submit"

@@ -8,7 +8,7 @@ import "./TweetBox.css";
 
 export default function CommentBox() {
   const { tweetMessage, setTweetMessage } = useContext(TweetPosterContext);
-  const { setTweetsRender } = useContext(TweetsRenderContext);
+  const { tweetsRender, setTweetsRender } = useContext(TweetsRenderContext);
   const navigate = useNavigate();
   const date =
     format(new Date(), "yyyy-MM-dd") +

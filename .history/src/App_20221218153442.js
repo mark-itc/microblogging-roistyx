@@ -1,15 +1,16 @@
-import { Route, Routes } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Route, Routes, Switch } from "react-router-dom";
 import { Profile } from "./views/Profile";
 import Navbar from "./components/Navbar";
 import Feed from "./views/Feed";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
-import { AuthProvider } from "./contexts/AuthContext";
-import { TweetContextProvider } from "./contexts/TweetContext";
 import "./components/right-column.css";
 import "./components/left-column.css";
 import "./components/Navbar.css";
 import "./App.css";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { TweetContextProvider } from "./contexts/TweetContext";
 
 function App() {
   return (

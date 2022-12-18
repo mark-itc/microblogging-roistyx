@@ -49,7 +49,7 @@ export default function Navbar() {
         </Button>
       ) : (
         <Button
-          className="white"
+          className="custom-link"
           variant="link"
           onClick={() => navigate("/login")}
         >

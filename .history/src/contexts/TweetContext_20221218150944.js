@@ -1,12 +1,10 @@
 import React, { createContext, useState, useReducer } from "react";
-import { format } from "date-fns";
+import { useAuth } from "./AuthContext";
 import { getFirestore, collection, addDoc } from "firebase/firestore/lite";
-import { ref, getDownloadURL, listAll, getStorage } from "firebase/storage";
-import { useAuth } from "../contexts/AuthContext";
 import app from "../firebase";
+import { format } from "date-fns";
 
 export const TweetContext = createContext();
-const storage = getStorage(app);
 
 export const ACTIONS = {
   ADD_TWEET: "add-tweet",
@@ -33,7 +31,6 @@ async function sendPostToDatabase(tweetItem) {
 }
 
 export function TweetContextProvider({ children }) {
-  const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [tweetRender, setTweetRender] = useState();
   const [picUrl, setPicUrl] = useState(null);
@@ -46,26 +43,6 @@ export function TweetContextProvider({ children }) {
     "T" +
     format(new Date(), "HH:mm:ss.ms") +
     "Z";
-
-  async function getProfilePic() {
-    if (!currentUser) return;
-    const listRef = ref(storage, `/`);
-
-    listAll(listRef)
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          getDownloadURL(itemRef).then((url) => {
-            if (url.includes(currentUser.uid)) {
-              setUserUrl(url);
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-    return;
-  }
 
   return (
     <TweetContext.Provider
@@ -85,7 +62,6 @@ export function TweetContextProvider({ children }) {
         setLoading,
         userUrl,
         setUserUrl,
-        getProfilePic,
       }}
     >
       {children}

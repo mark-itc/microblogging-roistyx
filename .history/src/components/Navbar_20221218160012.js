@@ -48,12 +48,8 @@ export default function Navbar() {
           Log Out
         </Button>
       ) : (
-        <Button
-          className="white"
-          variant="link"
-          onClick={() => navigate("/login")}
-        >
-          Log in
+        <Button variant="link" onClick={() => navigate("/login")}>
+          <a>Log in </a>
         </Button>
       )}
       <div className="menu-items">
