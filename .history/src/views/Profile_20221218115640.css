@@ -1,0 +1,9 @@
+.profile {
+  flex: 0.4;
+  /* max-width: 450px; */
+  /* overflow: scroll; */
+  margin-top: 500px
+  position: relative;
+  margin: auto;
+  /* border: 1px solid white; */
+}
